@@ -41,9 +41,7 @@
     /* AREA FIXA DO TOPO */
     .fixed-header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       background-color: var(--bg-app);
       z-index: 90;
       padding: 12px 12px 4px 12px;
@@ -187,7 +185,7 @@
     .btn-quick-green { background-color: #2ec4b6; }
     .btn-quick-red { background-color: #e63946; }
 
-    /* CONTEÚDO ROLÁVEL (GRID DE CARTÕES MAIORES) */
+    /* CONTEÚDO ROLÁVEL (GRID DE CARTÕES) */
     .content-scroll {
       margin-top: var(--header-height);
       padding: 12px;
@@ -223,7 +221,6 @@
 
     .card:active { transform: scale(0.94); }
     
-    /* Centralização e tamanhos maiores para ícone/imagem */
     .card .icon { 
       font-size: 3.5rem; 
       display: flex;
@@ -260,13 +257,11 @@
     /* ÁREA DO MEDIADOR (MODAL DE ADIÇÃO E EDIÇÃO) */
     .add-btn {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 20px; right: 20px;
       background: #ffffff;
       color: #212529;
       border: none;
-      width: 52px;
-      height: 52px;
+      width: 52px; height: 52px;
       border-radius: 50%;
       font-size: 1.8rem;
       font-weight: bold;
@@ -342,41 +337,13 @@
       100% { transform: scale(1); opacity: 1; }
     }
   </style>
-	
-	<!-- LIBS DO FIREBASE -->
+
+  <!-- LIBS DO FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
-	
-	
-	
+
 <body>
-	
-	
-	<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBn6VxLxoM5PS6g8PYOuYcb558bTsyvf_8",
-    authDomain: "caju-prancha.firebaseapp.com",
-    databaseURL: "https://caju-prancha-default-rtdb.firebaseio.com",
-    projectId: "caju-prancha",
-    storageBucket: "caju-prancha.firebasestorage.app",
-    messagingSenderId: "196962035123",
-    appId: "1:196962035123:web:d8b4d22ea2ca648b1117c6",
-    measurementId: "G-8SRHR8HPDH"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
 
   <!-- TOPO FIXO -->
   <header class="fixed-header" id="fixedHeader">
@@ -464,26 +431,59 @@
   </div>
 
   <script>
+    // CONFIGURAÇÃO DO FIREBASE COM AS SUAS CHAVES
+    const firebaseConfig = {
+      apiKey: "AIzaSyBn6VxLxoM5PS6g8PYOuYcb558bTsyvf_8",
+      authDomain: "caju-prancha.firebaseapp.com",
+      databaseURL: "https://caju-prancha-default-rtdb.firebaseio.com",
+      projectId: "caju-prancha",
+      storageBucket: "caju-prancha.firebasestorage.app",
+      messagingSenderId: "196962035123",
+      appId: "1:196962035123:web:d8b4d22ea2ca648b1117c6"
+    };
+
+    // Inicializa o Firebase e o Banco em tempo real
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const cardsRef = db.ref('caju_cards');
+
     const initialCards = [
-      { id: 1, label: 'Eu', icon: '👤', image: null, cat: 'sujeito' },
-      { id: 2, label: 'Quero', icon: '👉', image: null, cat: 'acao' },
-      { id: 3, label: 'Comer', icon: '🍎', image: null, cat: 'acao' },
-      { id: 4, label: 'Água', icon: '💧', image: null, cat: 'alimento' },
-      { id: 5, label: 'Banheiro', icon: '🚽', image: null, cat: 'objeto' },
-      { id: 6, label: 'Estou', icon: '💭', image: null, cat: 'sujeito' },
-      { id: 7, label: 'Feliz', icon: '😊', image: null, cat: 'sentimento' },
-      { id: 8, label: 'Dor', icon: '🩹', image: null, cat: 'sentimento' },
-      { id: 9, label: 'Brincar', icon: '🧸', image: null, cat: 'acao' },
-      { id: 10, label: 'Dormir', icon: '😴', image: null, cat: 'acao' }
+      { id: '1', label: 'Eu', icon: '👤', image: null, cat: 'sujeito' },
+      { id: '2', label: 'Quero', icon: '👉', image: null, cat: 'acao' },
+      { id: '3', label: 'Comer', icon: '🍎', image: null, cat: 'acao' },
+      { id: '4', label: 'Água', icon: '💧', image: null, cat: 'alimento' },
+      { id: '5', label: 'Banheiro', icon: '🚽', image: null, cat: 'objeto' },
+      { id: '6', label: 'Estou', icon: '💭', image: null, cat: 'sujeito' },
+      { id: '7', label: 'Feliz', icon: '😊', image: null, cat: 'sentimento' },
+      { id: '8', label: 'Dor', icon: '🩹', image: null, cat: 'sentimento' },
+      { id: '9', label: 'Brincar', icon: '🧸', image: null, cat: 'acao' },
+      { id: '10', label: 'Dormir', icon: '😴', image: null, cat: 'acao' }
     ];
 
-    let cards = JSON.parse(localStorage.getItem('caju_cards')) || initialCards;
+    let cards = [];
     let currentPhrase = [];
     let activeFilter = 'todos';
     let editingCardId = null;
 
     let pressTimer = null;
     let isLongPress = false;
+
+    // ESCUTA O BANCO DE DADOS EM TEMPO REAL
+    cardsRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        cards = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+      } else {
+        resetToDefaultsInDatabase();
+      }
+      renderCards();
+    });
+
+    function resetToDefaultsInDatabase() {
+      const updates = {};
+      initialCards.forEach(c => { updates[c.id] = c; });
+      cardsRef.set(updates);
+    }
 
     function adjustHeaderSpacing() {
       const header = document.getElementById('fixedHeader');
@@ -493,12 +493,8 @@
       }
     }
 
-    function saveCardsToStorage() {
-      localStorage.setItem('caju_cards', JSON.stringify(cards));
-    }
-
     function selectQuickResponse(label, icon) {
-      selectCard({ id: Date.now(), label, icon, image: null, cat: 'resposta' });
+      selectCard({ id: Date.now().toString(), label, icon, image: null, cat: 'resposta' });
     }
 
     function renderCards() {
@@ -531,9 +527,7 @@
           }, 800);
         };
 
-        const cancelPress = () => {
-          clearTimeout(pressTimer);
-        };
+        const cancelPress = () => clearTimeout(pressTimer);
 
         const handleClick = (e) => {
           if (isLongPress) {
@@ -646,115 +640,103 @@
     }
 
     function saveCardHandler() {
-  const label = document.getElementById('cardLabel').value.trim();
-  const icon = document.getElementById('cardIcon').value.trim();
-  const cat = document.getElementById('cardCat').value;
-  const imageInput = document.getElementById('cardImage');
+      const label = document.getElementById('cardLabel').value.trim();
+      const icon = document.getElementById('cardIcon').value.trim();
+      const cat = document.getElementById('cardCat').value;
+      const imageInput = document.getElementById('cardImage');
 
-  if (!label) return alert('Por favor, informe o nome do cartão!');
+      if (!label) return alert('Por favor, informe o nome do cartão!');
 
-  if (imageInput.files && imageInput.files[0]) {
-    const file = imageInput.files[0];
-    compressAndResizeImage(file, 200, 200, 0.7, (compressedBase64) => {
-      commitCardSave(label, null, compressedBase64, cat);
-    });
-  } else {
-    let existingImage = null;
-    if (editingCardId) {
-      const existingCard = cards.find(c => c.id === editingCardId);
-      if (existingCard && !icon) existingImage = existingCard.image;
-    }
-    
-    if (!icon && !existingImage) {
-      return alert('Por favor, informe um Emoji ou selecione uma Imagem!');
-    }
-    
-    commitCardSave(label, icon, existingImage, cat);
-  }
-}
-
-// Função auxiliar para redimensionar e comprimir a foto
-function compressAndResizeImage(file, maxWidth, maxHeight, quality, callback) {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function (event) {
-    const img = new Image();
-    img.src = event.target.result;
-    img.onload = function () {
-      const canvas = document.createElement('canvas');
-      let width = img.width;
-      let height = img.height;
-
-      if (width > height) {
-        if (width > maxWidth) {
-          height = Math.round((height * maxWidth) / width);
-          width = maxWidth;
-        }
+      if (imageInput.files && imageInput.files[0]) {
+        const file = imageInput.files[0];
+        compressAndResizeImage(file, 200, 200, 0.7, (compressedBase64) => {
+          commitCardSave(label, null, compressedBase64, cat);
+        });
       } else {
-        if (height > maxHeight) {
-          width = Math.round((width * maxHeight) / height);
-          height = maxHeight;
+        let existingImage = null;
+        if (editingCardId) {
+          const existingCard = cards.find(c => c.id === editingCardId);
+          if (existingCard && !icon) existingImage = existingCard.image;
         }
+        
+        if (!icon && !existingImage) {
+          return alert('Por favor, informe um Emoji ou selecione uma Imagem!');
+        }
+        
+        commitCardSave(label, icon, existingImage, cat);
       }
+    }
 
-      canvas.width = width;
-      canvas.height = height;
+    function compressAndResizeImage(file, maxWidth, maxHeight, quality, callback) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function (event) {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
 
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, width, height);
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
 
-      // Exporta em JPEG comprimido para ocupar pouquíssimo espaço
-      const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
-      callback(compressedDataUrl);
-    };
-  };
-}
+          canvas.width = width;
+          canvas.height = height;
 
-function commitCardSave(label, icon, image, cat) {
-  const newCard = { id: Date.now(), label, icon, image, cat };
-  
-  if (editingCardId) {
-    cards = cards.map(c => c.id === editingCardId ? newCard : c);
-  } else {
-    cards.push(newCard);
-  }
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
 
-  try {
-    saveCardsToStorage();
-    toggleModal(false);
-    renderCards();
-  } catch (e) {
-    alert('A memória local ainda está cheia. Tente remover alguns cartões antigos!');
-    cards = cards.filter(c => c.id !== newCard.id);
-  }
-}
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+          callback(compressedDataUrl);
+        };
+      };
+    }
 
-   function resetDefaultCards() {
-  // Solicita a palavra de confirmação ao usuário
-  const userInput = prompt('ATENÇÃO: Isso apagará todos os seus cartões criados e restaurará o sistema padrão.\n\nPara confirmar essa ação, digite a palavra CAJU em maiúsculas:');
+    function commitCardSave(label, icon, image, cat) {
+      const cardId = editingCardId || Date.now().toString();
+      const cardData = { label, icon: icon || null, image: image || null, cat };
 
-  // Verifica se o usuário clicou em cancelar ou não digitou nada
-  if (userInput === null) {
-    return;
-  }
+      // ENVIA PARA O FIREBASE EM TEMPO REAL
+      cardsRef.child(cardId).set(cardData)
+        .then(() => toggleModal(false))
+        .catch(err => alert('Erro ao salvar no Firebase: ' + err.message));
+    }
 
-  // Valida a palavra digitada (com suporte a maiúsculas/minúsculas)
-  if (userInput.trim().toUpperCase() === 'CAJU') {
-    cards = [...initialCards];
-    saveCardsToStorage();
-    toggleModal(false);
-    renderCards();
-    alert('Os cartões originais foram restaurados com sucesso!');
-  } else {
-    alert('Palavra de confirmação incorreta. A restauração foi cancelada.');
-  }
-}
+    function deleteCurrentCard() {
+      if (!editingCardId) return;
+      if (confirm('Tem certeza que deseja excluir este cartão?')) {
+        cardsRef.child(editingCardId).remove()
+          .then(() => toggleModal(false))
+          .catch(err => alert('Erro ao excluir: ' + err.message));
+      }
+    }
+
+    function resetDefaultCards() {
+      const userInput = prompt('ATENÇÃO: Isso apagará todos os cartões criados e restaurará o sistema padrão para TODOS os usuários.\n\nPara confirmar, digite CAJU em maiúsculas:');
+
+      if (userInput === null) return;
+
+      if (userInput.trim().toUpperCase() === 'CAJU') {
+        resetToDefaultsInDatabase();
+        toggleModal(false);
+        alert('Os cartões originais foram restaurados com sucesso!');
+      } else {
+        alert('Palavra de confirmação incorreta. A restauração foi cancelada.');
+      }
+    }
 
     window.addEventListener('resize', adjustHeaderSpacing);
-    window.addEventListener('DOMContentLoaded', () => {
-      renderCards();
-      adjustHeaderSpacing();
-    });
+    window.addEventListener('DOMContentLoaded', adjustHeaderSpacing);
   </script>
 </body>
 </html>
